@@ -1614,13 +1614,13 @@ You can drag SQL statements from the Schema column and drop them into the SQL ed
      <normaloff>:/icons/run_line</normaloff>:/icons/run_line</iconset>
    </property>
    <property name="text">
-    <string>Execute current line</string>
+    <string>Execute current statement</string>
    </property>
    <property name="iconText">
-    <string>Execute line</string>
+    <string>Execute statement</string>
    </property>
    <property name="toolTip">
-    <string>Execute current line</string>
+    <string>Execute current statement</string>
    </property>
    <property name="whatsThis">
     <string>This button executes the SQL statement present in the current editor line</string>
