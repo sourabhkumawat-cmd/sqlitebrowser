@@ -183,6 +183,13 @@ void MainWindow::init()
     QShortcut* shortcutBrowseRefreshCtrlEnter = new QShortcut(QKeySequence("Ctrl+Enter"), this);
     connect(shortcutBrowseRefreshCtrlEnter, &QShortcut::activated, this, &MainWindow::refresh);
 
+    QShortcut* shortcutSqlExecutionLineCtrlShiftR = new QShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_R), this);
+    shortcutSqlExecutionLineCtrlShiftR->setObjectName("actionSqlExecuteLine");
+    connect(shortcutSqlExecutionLineCtrlShiftR, &QShortcut::activated, this, &MainWindow::executeQuery);
+    QShortcut* shortcutSqlExecutionLineCtrlShiftEnter = new QShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_Return), this);
+    shortcutSqlExecutionLineCtrlShiftEnter->setObjectName("actionSqlExecuteLine");
+    connect(shortcutSqlExecutionLineCtrlShiftEnter, &QShortcut::activated, this, &MainWindow::executeQuery);
+
     // Add print shortcut for the DB Structure tab (dbTreeWidget) with context to the widget, so other print shortcuts aren't eclipsed.
     QShortcut* shortcutPrint = new QShortcut(QKeySequence(QKeySequence::Print), ui->dbTreeWidget, nullptr, nullptr, Qt::WidgetShortcut);
     connect(shortcutPrint, &QShortcut::activated, this, &MainWindow::printDbStructure);
@@ -466,7 +473,7 @@ void MainWindow::init()
     addShortcutsTooltip(ui->actionSqlOpenFile);
     addShortcutsTooltip(ui->actionSqlPrint);
     addShortcutsTooltip(ui->actionExecuteSql, {shortcutBrowseRefreshF5->key(), shortcutBrowseRefreshCtrlR->key()});
-    addShortcutsTooltip(ui->actionSqlExecuteLine);
+    addShortcutsTooltip(ui->actionSqlExecuteLine, {shortcutSqlExecutionLineCtrlShiftEnter->key(), shortcutSqlExecutionLineCtrlShiftR->key()});
     addShortcutsTooltip(ui->actionSqlFind);
     addShortcutsTooltip(ui->actionSqlFindReplace);
     addShortcutsTooltip(ui->actionSqlToggleComment);
