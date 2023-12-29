@@ -42,6 +42,10 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, Tabs tab)
     ui->checkUpdates->setVisible(false);
 #endif
 
+#ifndef Q_OS_MACX
+    ui->checkSqleanExtensionAutoload->setVisible(false);
+#endif
+
     loadSettings();
 
     connect(ui->appStyleCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(adjustColorsToStyle(int)));
@@ -208,6 +212,9 @@ void PreferencesDialog::loadSettings()
     ui->listExtensions->addItems(Settings::getValue("extensions", "list").toStringList());
     ui->checkRegexDisabled->setChecked(Settings::getValue("extensions", "disableregex").toBool());
     ui->checkAllowLoadExtension->setChecked(Settings::getValue("extensions", "enable_load_extension").toBool());
+    #ifdef Q_OS_MACX
+        ui->checkSqleanExtensionAutoload->setChecked(Settings::getValue("extensions", "autoload_sqlean_extension").toBool());
+    #endif
     fillLanguageBox();
     ui->appStyleCombo->setCurrentIndex(Settings::getValue("General", "appStyle").toInt());
     ui->toolbarStyleComboMain->setCurrentIndex(Settings::getValue("General", "toolbarStyle").toInt());
@@ -280,6 +287,9 @@ void PreferencesDialog::saveSettings(bool accept)
     Settings::setValue("extensions", "list", extList);
     Settings::setValue("extensions", "disableregex", ui->checkRegexDisabled->isChecked());
     Settings::setValue("extensions", "enable_load_extension", ui->checkAllowLoadExtension->isChecked());
+    #ifdef Q_OS_MACX
+        Settings::setValue("extensions", "autoload_sqlean_extension", ui->checkSqleanExtensionAutoload->isChecked());
+    #endif
 
     // Save remote settings
     Settings::setValue("remote", "active", ui->checkUseRemotes->isChecked());

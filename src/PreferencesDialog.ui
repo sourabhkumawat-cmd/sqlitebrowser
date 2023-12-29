@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>756</width>
-    <height>625</height>
+    <height>666</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>4</number>
      </property>
      <widget class="QWidget" name="tab_4">
       <attribute name="title">
@@ -1863,6 +1863,16 @@ Can be set to 0 for disabling completion.</string>
          </property>
          <property name="text">
           <string>Allow loading extensions from SQL code</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkSqleanExtensionAutoload">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Automatically load the 'nalgeon/sqlean' extension at program startup.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="text">
+          <string>Automatically load the 'sqlean' extension</string>
          </property>
         </widget>
        </item>

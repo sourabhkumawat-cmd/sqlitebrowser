@@ -2170,6 +2170,15 @@ void DBBrowserDB::loadExtensionsFromSettings()
         if(loadExtension(ext) == false)
             QMessageBox::warning(nullptr, QApplication::applicationName(), tr("Error loading extension: %1").arg(lastError()));
     }
+
+    if (Settings::getValue("extensions", "autoload_sqlean_extension").toBool())
+    {
+        const QString sqleanExtensionPath = qApp->applicationDirPath() + "/../Extensions/sqlean.dylib";
+        if (loadExtension(sqleanExtensionPath) == false) {
+            QMessageBox::warning(nullptr, QApplication::applicationName(), tr("Error loading 'sqlean' extension. Option is disabled."));
+            Settings::setValue("extensions", "autoload_sqlean_extension", false);
+        }
+    }
 }
 
 std::vector<std::pair<std::string, std::string>> DBBrowserDB::queryColumnInformation(const std::string& schema_name, const std::string& object_name) const
