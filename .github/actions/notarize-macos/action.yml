@@ -138,8 +138,8 @@ runs:
         if [ "${{ inputs.SQLCIPHER }}" = "1" ]; then
           if [ "${{ inputs.DAILY }}" = "false" ]; then
             # Continuous with SQLCipher
-            sed -i "" 's/"DB Browser for SQLCipher Nightly.app"/"DB Browser for SQLCipher-dev-'$(git rev-parse --short --verify HEAD)'.app"/' installer/macos/sqlcipher-nightly.json
-            TARGET="DB.Browser.for.SQLCipher-dev-$(git rev-parse --short --verify HEAD).dmg"
+            sed -i "" 's/"DB Browser for SQLCipher Nightly.app"/"DB Browser for SQLCipher-3.13.0-rc1.app"/' installer/macos/sqlcipher-nightly.json
+            TARGET="DB.Browser.for.SQLCipher-3.13.0-rc1.dmg"
             appdmg --quiet installer/macos/sqlcipher-nightly.json "$TARGET"
             codesign --sign "$DEV_ID" --verbose --options=runtime --timestamp "$TARGET"
             codesign -vvv --deep --strict --verbose=4 "$TARGET"
@@ -153,8 +153,8 @@ runs:
         else
           if [ "${{ inputs.DAILY }}" = "false" ]; then
             # Continuous without SQLCipher
-            sed -i "" 's/"DB Browser for SQLite Nightly.app"/"DB Browser for SQLite-dev-'$(git rev-parse --short --verify HEAD)'.app"/' installer/macos/nightly.json
-            TARGET="DB.Browser.for.SQLite-dev-$(git rev-parse --short --verify HEAD).dmg"
+            sed -i "" 's/"DB Browser for SQLite Nightly.app"/"DB Browser for SQLite-3.13.0-rc1.app"/' installer/macos/nightly.json
+            TARGET="DB.Browser.for.SQLite-3.13.0-rc1.dmg"
             appdmg --quiet installer/macos/nightly.json "$TARGET"
             codesign --sign "$DEV_ID" --verbose --options=runtime --timestamp "$TARGET"
             codesign -vvv --deep --strict --verbose=4 "$TARGET"

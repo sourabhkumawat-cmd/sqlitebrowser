@@ -45,13 +45,13 @@ jobs:
 
       - name: Build
         working-directory: ./appbuild
-        run: make install -j2
+        run: make install -j $(nproc)
 
       - name: Build AppImage
         run: |
           wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
           chmod a+x linuxdeployqt-continuous-x86_64.AppImage
-          export VERSION=$(printf "dev-`git -C . rev-parse --short HEAD`")
+          export VERSION=3.13.0-rc1
           ./linuxdeployqt-continuous-x86_64.AppImage appdir/usr/share/applications/*.desktop -appimage
 
       - if: matrix.sqlcipher == '1'
@@ -66,4 +66,4 @@ jobs:
         with:
           files: DB_Browser_for_*.AppImage
           prerelease: true
-          tag_name: continuous
+          tag_name: v3.13.x-rc1

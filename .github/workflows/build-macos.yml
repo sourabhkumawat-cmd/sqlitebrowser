@@ -44,9 +44,9 @@ jobs:
               name: Configure build (Continuous)
               run: |
                 if [ "${{ matrix.sqlcipher }}" = "1" ]; then
-                    sed -i "" 's/"DB Browser for SQLite"/"DB Browser for SQLCipher-dev-'$(git rev-parse --short --verify HEAD)'"/' CMakeLists.txt
+                    sed -i "" 's/"DB Browser for SQLite"/"DB Browser for SQLCipher-3.13.0-rc1"/' CMakeLists.txt
                 else
-                    sed -i "" 's/"DB Browser for SQLite"/"DB Browser for SQLite-dev-'$(git rev-parse --short --verify HEAD)'"/' CMakeLists.txt
+                    sed -i "" 's/"DB Browser for SQLite"/"DB Browser for SQLite-3.13.0-rc1"/' CMakeLists.txt
                 fi
                 mkdir build && cd build
                 cmake -G Ninja -DCMAKE_OSX_ARCHITECTURES="arm64;x86_64" -DcustomTap=1 -DENABLE_TESTING=ON -Dsqlcipher=${{ matrix.sqlcipher }} ..
@@ -93,12 +93,12 @@ jobs:
                 TEAM_ID: ${{ secrets.MACOS_CODESIGN_TEAM_ID }}
 
             - if: github.event_name != 'pull_request' && env.DAILY == 'false'
-              name: Release (Continuous)
+              name: Release (3.13.x-rc1)
               uses: softprops/action-gh-release@v1
               with:
                 files: DB.Browser.for.*.dmg
                 prerelease: true
-                tag_name: continuous
+                tag_name: v3.13.x-rc1
 
             - if: env.DAILY == 'true'
               name: Release (Daily)
