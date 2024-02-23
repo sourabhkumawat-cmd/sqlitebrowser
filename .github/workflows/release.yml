@@ -1,0 +1,32 @@
+name: Release
+
+on:
+    workflow_call:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - run: mkdir target
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: target
+
+      - run: find target -type f -exec mv {} target \;
+
+      - name: Unarchive Windows's build artifacts
+        run: for f in target/*.zip; do unzip -d target/ "$f"; done
+
+      - name: Remove archived Windows's build artifacts
+        run: rm target/build-artifacts-*.zip
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: target/*
+          prerelease: true
+          tag_name: v3.13.x-rc1
+          draft: true
+          append_body: true
