@@ -49,12 +49,11 @@ jobs:
           cd C:\dev\SQLite-${{ matrix.arch}}\
           cl /MD extension-formats.c -link -dll -def:extension-formats.def -out:formats.dll
           cl /MD extension-functions.c -link -dll -def:extension-functions.def -out:math.dll
-          # FIXME: Disable building the 'fileio' extension for now (#3488)
-          # If this issue is resolved, be sure to delete the related patch for WiX
-          # curl -L -o fileio.c "https://sqlite.org/src/raw?filename=ext/misc/fileio.c&ci=trunk"
-          # curl -L -o test_windirent.c "https://sqlite.org/src/raw?filename=src/test_windirent.c&ci=trunk"
-          # curl -L -o test_windirent.h "https://sqlite.org/src/raw?filename=src/test_windirent.h&ci=trunk"
-          # cl /MD fileio.c test_windirent.c -link sqlite3.lib -dll -out:fileio.dll
+          # Build fileio SQLite extension
+          curl -o fileio.c "https://sqlite.org/src/raw?filename=ext/misc/fileio.c&ci=trunk"
+          curl -o test_windirent.c "https://sqlite.org/src/raw?filename=src/test_windirent.c&ci=trunk"
+          curl -o test_windirent.h "https://sqlite.org/src/raw?filename=src/test_windirent.h&ci=trunk"
+          cl /MD fileio.c test_windirent.c -link sqlite3.lib -dll -out:fileio.dll
 
       - name: Install SQLCipher
         env:
@@ -71,7 +70,6 @@ jobs:
       - name: Patch CMakeLists.txt and WiX Toolset Variables
         run: |
           git apply .github\patch\CMakeLists.txt.patch
-          git apply .github\patch\product.wxs.patch
           git apply .github\patch\translations.wxs.patch
           git apply .github\patch\variables.wxi.patch
 
